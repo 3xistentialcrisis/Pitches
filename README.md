@@ -70,7 +70,6 @@ To test this application, run this commands in the terminal;
 
 $ python3.8 .py 
 
-
 # Known Bugs
 There are no known bugs at the time of its creation.
 
