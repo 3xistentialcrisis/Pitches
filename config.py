@@ -2,7 +2,7 @@ import os
 
 class Config:
     """
-    General configurations' parent class
+    General config class
     """
 
     SECRET_KEY = 'wanjiku'
