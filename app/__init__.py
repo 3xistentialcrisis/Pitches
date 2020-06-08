@@ -11,10 +11,10 @@ def create_app():
     app.config.from_object(Config)
 
     # Registering blueprints
-    from .main import main as authentication_blueprint
+    from .auth import auth as authentication_blueprint
     from .main import main as main_blueprint
 
-    app.register_blueprint(authentication_blueprint)
+    app.register_blueprint(authentication_blueprint,url_prefix = '/authenticate')
     app.register_blueprint(main_blueprint)
 
     db.init_app(app)
