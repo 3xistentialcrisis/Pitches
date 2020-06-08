@@ -70,7 +70,7 @@ This application enables its users to:
 # Test Driven Development (TDD)
 To test this application, run this commands in the terminal;
 
-$ python3.8 .py 
+$ python3.8 manage.py test
 
 # Known Bugs
 There are no known bugs at the time of its creation.

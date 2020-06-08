@@ -5,8 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 app = Flask(__name__)
 
-def create_app():
 
+def create_app():
     # Create app configurations
     app.config.from_object(Config)
 
@@ -20,6 +20,3 @@ def create_app():
     db.init_app(app)
 
     return app
-
-
-
