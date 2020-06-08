@@ -53,7 +53,9 @@ https://github.com/3xistentialcrisis/Pitches.git
 
 4. Run the project in your terminal & run the python shell by running the following command in your terminal:
 
-$python3.8 
+$python3.8 manage.py server
+
+5. Open the application on your browser 127.0.0.1:5000
 
 
 # Features
@@ -80,5 +82,5 @@ There are no known bugs at the time of its creation.
 To get more help email the Administrator at admin@pitch.com
 
 # License
-This application is licensed under the terms of the MIT License.
+[![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/3xistentialcrisis/Pitches/blob/master/LICENSE)
 Copyright (c) Wanjiku Karanja 2020
