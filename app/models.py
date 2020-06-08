@@ -11,12 +11,14 @@ class User(db.Model,UserMixin):
     password = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True, index=True)
     secure_password = db.Column(db.String(255))
+    bio = db.Column(db.String(255))
+    profile_pic = db.Column(db.String())
 
     @property
-    def password(self):
-        raise AttributeError("You can not read the password")
+    def set_password(self):
+        raise AttributeError("You cannot read password attribute")
 
-    @password.setter
+    @set_password.setter
     def password(self, password):
         self.secure_password = generate_password_hash(password)
 
@@ -31,22 +33,22 @@ class User(db.Model,UserMixin):
         db.session.delete(self)
         db.session.commit()
 
-# User Authentification
-    @property
-    def password(self):
-        raise AttributeError("You cannot read the password")
-
-    @password.setter
-    def set_password(self, password):
-        password_hash = generate_password_hash(password)
-        self.password = password_hash
-
-    def verify_password(self, password):
-        return check_password_hash(self.password, password)
+# # User Authentification
+#     @property
+#     def password(self):
+#         raise AttributeError("You cannot read the password")
+#
+#     @password.setter
+#     def set_password(self, password):
+#         password_hash = generate_password_hash(password)
+#         self.password = password_hash
+#
+#     def verify_password(self, password):
+#         return check_password_hash(self.password, password)
 
     def __repr__(self):
         return f'User {self.username}'
 
 @login_manager.user_loader
-def user_loader(user_id):
-    return User.query.get(user_id)
+def load_user(user_id):
+    return User.query.get(int(user_id))
