@@ -9,8 +9,8 @@ manager = Manager(app)
 
 # Initialise migrate class
 migrate = Migrate(app, db)
-manager.add_command('run', Server(use_debugger=True))
-manager.add_command('db', MigrateCommand)
+manager.add_command('db',MigrateCommand)
+manager.add_command('run',Server(use_debugger=True))
 
 
 # Create Flask-script shell
