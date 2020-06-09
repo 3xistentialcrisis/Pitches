@@ -16,11 +16,12 @@ https://hello-pitch.herokuapp.com/
 
 # Technologies Used
 This application was built through:
-1. Python3.8 
-2. Flask Framework
-3. Postgres
-4. Pip
-5. Html and CSS(Bootstrap)
+1. [Python3.8](https://www.python.org/)
+2. [Flask](http://flask.pocoo.org/)
+3. [Heroku](https://heroku.com)
+4. Postgres
+5. Pip
+6. Html and CSS(Bootstrap)
 
 # Prerequisites
 1. Install Python3.8 on your computer by entering this command in terminal:
@@ -55,7 +56,7 @@ https://github.com/3xistentialcrisis/Pitches.git
 
 $python3.8 manage.py server
 
-5. Open the application on your browser 127.0.0.1:5000
+5. Open the application on your browser '127.0.0.1:5000'
 
 
 # Features
