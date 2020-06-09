@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for,abort,request
-from flask_login import login_required
-from ..models import User
-from .form import UpdateProfile
+from flask_login import login_required,current_user
+from ..models import User,Pitch,Comment
+from .form import UpdateProfile,PitchForm
 from .. import db,photos
 
 from . import main
@@ -9,7 +9,40 @@ from . import main
 
 @main.route('/')
 def index():
+    pitches = Pitch.query.all()
+    mystery = Pitch.query.filter_by(category='mystery')
+    return render_template('index.html', mystery=mystery, pitches=pitches)
     return render_template('index.html')
+
+@main.route('/new_pitch', methods = ['POST','GET'])
+@login_required
+def new_pitch():
+    form = PitchForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        post = form.post.data
+        category = form.category.data
+        user_id = current_user
+        new_pitch = Pitch(post=post,user_id =current_user._get_current_object().id,category=category,title=title)
+        new_pitch.save_p()
+        return redirect(url_for('main.index'))
+    return render_template('create_pitch.html', form = form)
+
+
+@main.route('/new_comment/<int:pitch_id>', methods = ['POST','GET'])
+@login_required
+def comment(pitch_id):
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = form.comment.data
+        post_id = Pitch.query.get(pitch_id)
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
+
+        new_comment.save_c()
+        return redirect(url_for('.comment', pitch_id = pitch_id))
+
+    return render_template('comment.html', form=form, )
 
 @main.route('/user/<name>')
 def profile(name):
@@ -29,11 +62,11 @@ def updateprofile(name):
         abort(404)
     if form.validate_on_submit():
         user.bio = form.bio.data
-        user.save()
+        user.save_u()
         return redirect(url_for('.profile',name = name))
     return render_template('profile/update.html',form =form)
 
-@main.route('/user/<name>/update/profilepicture', methods= ['POST'])
+@main.route('/user/<name>/update/pic', methods= ['POST'])
 @login_required
 def update_pic(name):
     user = User.query.filter_by(username = name).first()

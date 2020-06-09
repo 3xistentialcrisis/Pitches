@@ -11,3 +11,7 @@ class PitchForm(FlaskForm):
     post = TextAreaField('Your Pitch', validators=[Required()])
     category = SelectField('Category', choices=[('Mystery','Mystery'),('Thriller','Thriller'),('Romance','Romance')],validators=[Required()])
     submit = SubmitField('Post')
+
+class CommentForm(FlaskForm):
+    comment = StringField('Leave a Comment',validators=[Required()])
+    submit = SubmitField('Comment')
