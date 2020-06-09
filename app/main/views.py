@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for,abort,request
 from flask_login import login_required,current_user
-from ..models import User,Pitch,Comment
-from .form import UpdateProfile,PitchForm
+from ..models import User,Pitch,Comment,Upvote
+from .form import UpdateProfile,UpvoteForm,PitchForm
 from .. import db,photos
 
 from . import main
@@ -16,7 +16,7 @@ def index():
     romance = Pitch.query.filter_by(category='romance').all()
     return render_template('index.html', mystery=mystery, thriller=thriller, pitches=pitches, romance=romance)
 
-@main.route('/new_pitch', methods = ['POST','GET'])
+@main.route('/create_new', methods = ['POST','GET'])
 @login_required
 def new_pitch():
     form = PitchForm()
@@ -25,8 +25,8 @@ def new_pitch():
         post = form.post.data
         category = form.category.data
         user_id = current_user
-        new_pitch = Pitch(post=post,user_id =current_user._get_current_object().id,category=category,title=title)
-        new_pitch.save_p()
+        new_pitch_object = Pitch(post=post, user_id=current_user._get_current_object().id, category=category,title=title)
+        new_pitch_object.save_p()
         return redirect(url_for('main.index'))
     return render_template('create_pitch.html', form = form)
 
@@ -80,3 +80,13 @@ def update_pic(name):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',name=name))
+
+@main.route('/like/<int:id>',methods = ['POST','GET'])
+@login_required
+def like(id):
+    user = Upvote.query.get(id)
+    all_upvotes = Upvote.query.filter_by(id=id).all()
+    pitch = Pitch.query.get(id)
+    new_vote = Upvote(user = user, pitch = pitch,upvote = 1)
+    new_vote.save()
+    return redirect(url_for('main.index',id = pitch.id))
