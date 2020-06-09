@@ -10,9 +10,11 @@ from . import main
 @main.route('/')
 def index():
     pitches = Pitch.query.all()
-    mystery = Pitch.query.filter_by(category='mystery')
+    mystery = Pitch.query.filter_by(category='mystery').all()
     return render_template('index.html', mystery=mystery, pitches=pitches)
-    return render_template('index.html')
+    thriller = Pitch.query.filter_by(category='thriller').all()
+    romance = Pitch.query.filter_by(category='romance').all()
+    return render_template('index.html', mystery=mystery, thriller=thriller, pitches=pitches, romance=romance)
 
 @main.route('/new_pitch', methods = ['POST','GET'])
 @login_required
@@ -29,20 +31,22 @@ def new_pitch():
     return render_template('create_pitch.html', form = form)
 
 
-@main.route('/new_comment/<int:pitch_id>', methods = ['POST','GET'])
+@main.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
 @login_required
 def comment(pitch_id):
     form = CommentForm()
+    pitch = Pitch.query.get(pitch_id)
+    all_comments = Comment.query.filter_by(pitch_id=pitch_id).all()
     if form.validate_on_submit():
         comment = form.comment.data
-        post_id = Pitch.query.get(pitch_id)
+        pitch_id = pitch_id
         user_id = current_user._get_current_object().id
         new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
 
         new_comment.save_c()
-        return redirect(url_for('.comment', pitch_id = pitch_id))
+        return redirect(url_for('.comment', pitch=pitch))
+    return render_template('comment.html', form=form, pitch = pitch, all_comments=all_comments)
 
-    return render_template('comment.html', form=form, )
 
 @main.route('/user/<name>')
 def profile(name):
