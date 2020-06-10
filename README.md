@@ -84,4 +84,4 @@ To get more help email the Administrator at admin@pitch.com
 
 # License
 [![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/3xistentialcrisis/Pitches/blob/master/LICENSE)
-Copyright (c) Wanjiku Karanja 2020
+
