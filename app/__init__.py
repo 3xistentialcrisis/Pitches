@@ -17,7 +17,7 @@ photos = UploadSet('photos', IMAGES)
 app = Flask(__name__)
 
 
-def create_app():
+def create_app(config_name):
     # Create app configurations
     app.config.from_object(config_options[config_name])
 
