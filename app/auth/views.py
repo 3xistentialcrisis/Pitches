@@ -23,10 +23,10 @@ def login():
 
 #User Logout
 @auth.route('/logout')
- @login_required
-    def logout():
-        logout_user()
-        return redirect(url_for("main.index"))
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.index"))
 
 #User Signup
 @auth.route('/signup', methods = ["GET","POST"])
