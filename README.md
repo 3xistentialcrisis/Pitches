@@ -54,7 +54,7 @@ https://github.com/3xistentialcrisis/Pitches.git
 
 4. Run the project in your terminal & run the python shell by running the following command in your terminal:
 
-$python3.8 manage.py server
+$python3.8 manage.py run
 
 5. Open the application on your browser '127.0.0.1:5000'
 
